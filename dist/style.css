@@ -1,0 +1,46 @@
+* {
+  font-family: "PT Sans", sans-serif;
+}
+
+body {
+  background-color: #ffc048;
+}
+
+#new-wonder {
+  display: grid;
+  margin-bottom: 1vmax;
+}
+
+#wonders {
+  display: grid;
+  grid-gap: 1vmax;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.wonder {
+  align-content: center;
+  display: grid;
+  grid-template-columns: 10fr 2fr;
+  padding: 1vmax;
+  border-radius: 4px;
+  box-shadow: 1px 1px 3px black;
+}
+
+.visit {
+  font-weight: bold;
+  font-size: 0.8em;
+  cursor: pointer;
+  color: #3c40c6;
+  align-self: center;
+}
+.visit:active {
+  color: #0fbcf9;
+}
+
+.visited {
+  background-color: #05c46b;
+}
+
+.not-visited {
+  background-color: #ef5777;
+}
