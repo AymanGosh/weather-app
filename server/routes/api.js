@@ -5,12 +5,16 @@ const mongoose = require("mongoose");
 const City = require("../../model/City");
 
 mongoose.connect("mongodb://localhost/weatherDB", { useNewUrlParser: true });
-let cityDataJson;
 /******************************************************** */
-router.get("/city", function (req, res) {
-  initCityByName(req.body.cityName);
-  res.send(cityDataJson);
-});
+let cityDataJson;
+function saveCityDataToDb(cityData) {
+  new City({
+    name: cityData.name,
+    temperature: cityData.temperature,
+    condition: cityData.condition,
+    conditionPic: cityData.conditionPic,
+  }).save();
+}
 async function initCityByName(cityname) {
   await urllib.request(
     `https://api.openweathermap.org/data/2.5/weather?q=${cityname}&appid=64c4d0f651c0740ffa81195785cf1f35`,
@@ -26,6 +30,12 @@ async function initCityByName(cityname) {
     }
   );
 }
+/******************************************************** */
+router.get("/city", function (req, res) {
+  initCityByName(req.body.cityName);
+  res.send(cityDataJson);
+});
+
 /******************************************************** */
 router.get("/cities", function (req, res) {
   City.find({}, null, function (err, cities) {
@@ -50,14 +60,5 @@ router.delete("/city", function (req, res) {
     });
   res.send("Data deleted");
 });
-/******************************************************** */
-function saveCityDataToDb(cityData) {
-  new City({
-    name: cityData.name,
-    temperature: cityData.temperature,
-    condition: cityData.condition,
-    conditionPic: cityData.conditionPic,
-  }).save();
-}
 /******************************************************** */
 module.exports = router;
