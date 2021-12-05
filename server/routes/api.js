@@ -1,9 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const urllib = require("urllib");
+const mongoose = require("mongoose");
+const City = require("../../model/City");
 
+mongoose.connect("mongodb://localhost/weatherDB", { useNewUrlParser: true });
 let cityDataJson;
-
 /******************************************************** */
 router.get("/city", function (req, res) {
   initCityByName(req.body.cityName);
@@ -26,45 +28,36 @@ async function initCityByName(cityname) {
 }
 /******************************************************** */
 router.get("/cities", function (req, res) {
-  res.send(wonders);
+  City.find({}, null, function (err, cities) {
+    res.send(cities);
+  });
 });
+/******************************************************** */
 router.post("/city", function (req, res) {
-  console.log("Someone's trying to make a post request");
-  let wonder = req.body;
-  wonder.visited = false;
-  wonders.push(wonder);
-  res.send("completed adding wonder");
+  let newCity = req.body;
+  saveCityDataToDb(newCity);
+  res.send("completed adding city");
 });
+/******************************************************** */
 router.delete("/city", function (req, res) {
-  let wonder = req.params.wonderId;
-  let wondersIndex = wonders.findIndex((w) => w.name === wonder);
-  wonders.splice(wondersIndex, 1);
-  res.end();
+  let cityName = req.body.cityName;
+  City.deleteMany({ name: cityName })
+    .then(function () {
+      console.log("Data deleted"); // Success
+    })
+    .catch(function (error) {
+      console.log(error); // Failure
+    });
+  res.send("Data deleted");
 });
-///////////////////////////////////
-
-router.get("/wonders", function (req, res) {
-  res.send(wonders);
-});
-router.post("/wonder", function (req, res) {
-  console.log("Someone's trying to make a post request");
-  let wonder = req.body;
-  wonder.visited = false;
-  wonders.push(wonder);
-  res.send("completed adding wonder");
-});
-
-router.put("/wonder/:wonderId", function (req, res) {
-  let wonder = req.params.wonderId;
-  wonders.find((w) => w.name === wonder).visited = true;
-  res.end(); // don't forget to end the cycle!
-});
-
-router.delete("/wonder/:wonderId", function (req, res) {
-  let wonder = req.params.wonderId;
-  let wondersIndex = wonders.findIndex((w) => w.name === wonder);
-  wonders.splice(wondersIndex, 1);
-  res.end();
-});
-
+/******************************************************** */
+function saveCityDataToDb(cityData) {
+  new City({
+    name: cityData.name,
+    temperature: cityData.temperature,
+    condition: cityData.condition,
+    conditionPic: cityData.conditionPic,
+  }).save();
+}
+/******************************************************** */
 module.exports = router;
