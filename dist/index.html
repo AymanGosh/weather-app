@@ -12,10 +12,31 @@
 
 <body>
     
+    <div class="barClass">
+        <input type="text" id="inp" placeholder="&nbsp;">
+        <button class="searchBtn">Search</button>
+    </div>  
+
+    
+        <div class="weather-wrapper">
+            <div class="weather-card">
+                <img src="http://openweathermap.org/img/wn/04d@2x.png" alt="Girl in a jacket" width="100" height="100">
+                <h1>26º</h1>
+                <p>Madrid</p>
+            </div>
+            <div class="weather-card">
+                <img class="image" src="http://openweathermap.org/img/wn/09d@2x.png" alt="Girl in a jacket" width="100" height="100">
+                <h1>14º</h1>
+                <p>London</p>
+            </div>
+        </div>
+ 
 
     <script src="./jquery/dist/jquery.js"></script>
     <script src="./handlebars/dist/handlebars.js"></script>
-    <script src="main.js"></script>
+    <script src="model.js"></script>
+    <script src="view.js"></script>
+    <script src="controller.js"></script>
 </body>
 
 </html>
