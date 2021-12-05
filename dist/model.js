@@ -1,9 +1,14 @@
 class City {
   constructor() {
-    this._cityData = [];
+    this.citiesArray = [];
   }
-  getDataFromDB() {}
+  async getDataFromDB() {
+    this.citiesArray = await $.get("/cities");
+  }
   getCityData() {}
   saveCity() {}
   removeCity() {}
+  getCityArr() {
+    return this.citiesArray.slice();
+  }
 }
