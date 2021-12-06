@@ -19,8 +19,10 @@ async function initCityByName(cityname) {
   await urllib.request(
     `https://api.openweathermap.org/data/2.5/weather?q=${cityname}&appid=64c4d0f651c0740ffa81195785cf1f35`,
     function (err, data, res) {
-      let cityData = data.toString();
-      cityData = JSON.parse(cityData);
+      // let cityData = data.toString();
+      // cityData = JSON.parse(cityData);
+      //////////////////////
+      let cityData = JSON.parse(data);
       cityDataJson = {
         name: cityData.name,
         temperature: cityData.main.temp,
@@ -32,7 +34,7 @@ async function initCityByName(cityname) {
 }
 /******************************************************** */
 router.get("/city", function (req, res) {
-  initCityByName(req.body.cityName);
+  initCityByName(req.query.cityName);
   res.send(cityDataJson);
 });
 
@@ -50,7 +52,7 @@ router.post("/city", function (req, res) {
 });
 /******************************************************** */
 router.delete("/city", function (req, res) {
-  let cityName = req.body.cityName;
+  let cityName = req.query.cityName;
   City.deleteMany({ name: cityName })
     .then(function () {
       console.log("Data deleted"); // Success
