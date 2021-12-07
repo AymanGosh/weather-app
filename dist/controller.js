@@ -20,7 +20,7 @@ $(".weather-wrapper").on("click", ".saveBtn", function () {
 $(".weather-wrapper").on("click", ".removeBtn", function () {
   let cityData = getCityDatafromDOM($(this));
   city.removeCity(cityData.name);
-  renderer.render(city.getCityArr());
+  loadPage();
 });
 /********************************************************* */
 function getCityDatafromDOM(cityDOM) {
