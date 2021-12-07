@@ -17,12 +17,14 @@ function saveCityDataToDb(cityData) {
 }
 async function initCityByName(cityname) {
   await urllib.request(
-    `https://api.openweathermap.org/data/2.5/weather?q=${cityname}&appid=64c4d0f651c0740ffa81195785cf1f35`,
+    `https://api.openweathermap.org/data/2.5/weather?q=${cityname}&&units=metric&appid=64c4d0f651c0740ffa81195785cf1f35`,
     function (err, data, res) {
       // let cityData = data.toString();
       // cityData = JSON.parse(cityData);
       //////////////////////
       let cityData = JSON.parse(data);
+
+      cityData.main.temp = Number.parseInt(cityData.main.temp);
       cityDataJson = {
         name: cityData.name,
         temperature: cityData.main.temp,
