@@ -13,7 +13,10 @@ app.use(express.static(path.join(__dirname, "node_modules")));
 
 app.use("/", api);
 
-const port = 3000; //because why not
-app.listen(port, function () {
-  console.log(`Server running on ${port}`);
-});
+const PORT = 8080;
+app.listen(process.env.PORT || PORT);
+
+// const port = 3000; //because why not
+// app.listen(port, function () {
+//   console.log(`Server running on ${port}`);
+// });

@@ -4,7 +4,8 @@ const urllib = require("urllib");
 const mongoose = require("mongoose");
 const City = require("../../model/City");
 
-mongoose.connect("mongodb://localhost/weatherDB", { useNewUrlParser: true });
+//mongoose.connect("mongodb://localhost/weatherDB", { useNewUrlParser: true });
+mongoose.connect(process.env.MONGODB_URL || "mongodb://localhost/weatherDB");
 /******************************************************** */
 let cityDataJson;
 function saveCityDataToDb(cityData) {
