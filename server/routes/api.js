@@ -28,7 +28,6 @@ async function initCityByName(cityname) {
       cityDataJson = {
         name: cityData.name,
         temperature: cityData.main.temp,
-        condition: cityData.weather[0].main,
         conditionPic: `http://openweathermap.org/img/wn/${cityData.weather[0].icon}@2x.png`,
       };
     }
