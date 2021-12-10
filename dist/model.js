@@ -3,7 +3,7 @@ class City {
     this.citiesArray = [];
   }
   async getDataFromDB() {
-    this.citiesArray = await $.get("cities");
+    this.citiesArray = await $.get("/cities/");
   }
   async getCityData(cityName) {
     let newCity = await $.get(`city/?cityName=${cityName}`);
