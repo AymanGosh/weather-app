@@ -41,7 +41,7 @@ router.get("/city", function (req, res) {
 });
 
 /******************************************************** */
-router.get("/cities", function (req, res) {
+router.get("/cities/", function (req, res) {
   City.find({}, null, function (err, cities) {
     res.send(cities);
   });
